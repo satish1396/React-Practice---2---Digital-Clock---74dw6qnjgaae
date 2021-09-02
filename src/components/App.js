@@ -10,20 +10,23 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-           time:""      
+           time:getTimefun()      
         }
     }
     componentDidMount(){
-    setInterval(()=>{
-        this.setState({
-            time : getTimefun()
-        })
-    })
+        this.unmount=setInterval(()=>{
+            this.setState({
+                time : getTimefun()
+            })
+        },1000)
+    }
+    componentWillUnmount(){
+        clearInterval(this.unmount)
     }
     
     render() {
         return(
-            <div>
+            <div className="Clock">
                <h3 id="time">{this.state.time}</h3>
             </div>
         )
